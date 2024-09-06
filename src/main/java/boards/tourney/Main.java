@@ -78,15 +78,12 @@ public class Main {
         output.setEditable(false);
         contentPanel.add(output, c);
 
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<String> input = new ArrayList<>(userInputList.getText()
-                        .lines().toList());
-                Collections.shuffle(input, new Random(Integer.parseInt(seed.getText())));
-                String output1 = StringUtils.join(input, "\n");
-                output.setText(output1);
-            }
+        btn.addActionListener(e -> {
+            List<String> input = new ArrayList<>(userInputList.getText()
+                    .lines().toList());
+            Collections.shuffle(input, new Random(Integer.parseInt(seed.getText())));
+            String output1 = StringUtils.join(input, "\n");
+            output.setText(output1);
         });
 
         //Display the window.
@@ -95,22 +92,13 @@ public class Main {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        Runnable setMinium = new Runnable() {
-            @Override
-            public void run() {
-                frame.setMinimumSize(contentPanel.getPreferredSize());
-            }
-        };
+        Runnable setMinium = () -> frame.setMinimumSize(contentPanel.getPreferredSize());
         SwingUtilities.invokeLater(setMinium);
     }
 
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        javax.swing.SwingUtilities.invokeLater(Main::createAndShowGUI);
     }
 }
